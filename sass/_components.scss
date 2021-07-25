@@ -1,0 +1,597 @@
+
+// LOGO
+.logo {
+  height: 3.25rem;
+  margin-left: 2rem;
+}
+
+
+
+// SEARCH
+.search {
+  // background-color: orangered;
+  flex: 0 0 40%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__input {
+    font-family: inherit;  // font-family on an "input" element DOES NOT inherit from the font family from global document
+    font-size: inherit;  // "input" element - DOES NOT inherit from the font family from global document
+    color: inherit;  // "input" element - DOES NOT inherit from the font family from global document
+    background-color: var(--color-grey-light-2);
+    border: none;
+    padding: .7rem 2rem;
+    border-radius: 10rem;
+    width: 90%;
+    transition: all .2s;
+    margin-right: -3.25rem;  // the button (magifying glass) will then move on top of the input
+
+    &:focus {
+      outline: none;
+      width: 100%;  // which is the 40% width from .search (it's parent element)
+      background-color: var(--color-grey-light-3);
+    }
+
+    &::-webkit-input-placeholder {
+      font-weight: 100;
+      color: var(--color-grey-light-4);
+    }
+
+    &::-ms-input-placeholder {
+      font-weight: 100;
+      color: var(--color-grey-light-4);
+    }
+
+    &::placeholder {
+      font-weight: 100;
+      color: var(--color-grey-light-4);
+    }
+  }
+
+  &__input:focus + &__button {  // + means selects the adjacent button
+    background-color: var(--color-grey-light-3);
+  }
+
+  &__button {
+    border: none;
+    background-color: var(--color-grey-light-2);
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+  }
+
+  &__icon {
+    height: 2rem;
+    width: 2rem;
+    fill: var(--color-grey-dark-3)  // fill - change the color of the icons
+  }
+}
+
+
+
+// USER NAVIGATION
+.user-nav {
+  // background-color: greenyellow;
+  align-self: stretch;  // from class header - "align-items: center". We are overriding this to "align-self: stretch"
+
+  display: flex;
+  align-items: center;
+  // justify-content: space-around;
+  // flex: 0 0 20%;
+
+  & > * {  // select the direct children only
+    padding: 0 2rem;
+    cursor: pointer;
+    height: 100%;  // after "align-self: stretch" on ".user-nav", we set the items to height 100%
+
+    // apply this to all of its direct children, eg "icon-box" and "user"
+    display: flex;
+    align-items: center; 
+  }
+
+  & > *:hover {
+    background-color: var(--color-grey-light-2);
+    
+  }
+
+  &__icon-box {
+    // display: flex;
+    // align-items: center;
+    position: relative;
+  }
+
+  &__icon {
+    height: 2.25rem;
+    width: 2.25rem;
+    fill: var(--color-grey-dark-2);  // fill - change the color of the icons
+    // align-self: center;
+  }
+
+
+  &__notification {
+    // align-self: center;
+    font-size: .8rem;
+    height: 1.75rem;
+    width: 1.75rem;
+    // border-radius: 50%;
+    border-radius: 100px;  // use 100px instead of 50%. text is bigger than the circle and will not yield a perfect circle
+    background-color: var(--color-primary);
+    color: #fff;
+
+    position: absolute;
+    top: 1.5rem;
+    right: 1.1rem;
+
+    // can use flexbox to center the text
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  &__user {
+    // display: flex;
+    // align-items: center; 
+  }
+
+  &__user-photo {
+    height: 3.75rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+
+  &__user-name {
+
+  }
+}
+
+
+
+
+// SIDE NAVIGATION
+.side-nav {
+  font-size: 1.4rem;
+  list-style: none;
+  margin-top: 3.5rem;
+
+  &__item {
+    position: relative;
+    
+    &:not(:last-child) {
+      margin-bottom: .5rem;
+    }
+  }
+
+
+  &__item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;  // give it the same size as the "item"
+    width: 3px;
+    background-color: var(--color-primary);
+    transform: scaleY(0);
+    // transform-origin: bottom;  // usually sets at center. can set this to "bottom" or "top" and animation will start from this point
+    transition: transform .2s, 
+                // width .4s .2s;
+                width .4s cubic-bezier(1,0,0,1) .2s,
+                background-color .1s;
+    // opacity: .3;
+  }
+
+  &__item:hover::before, 
+  &__item--active::before {
+    transform: scaleY(1);  // scale in Y direction, ie vertically (and not in all direction)
+    width: 100%;  // initially only has 3px(from above) and then scale to the whole width of the item
+  }
+
+  &__item:active::before {
+    background-color: var(--color-primary-light);
+  }
+
+
+  &__link:link,
+  &__link:visited {
+    color: var(--color-grey-light-1);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+    padding: 1.5rem 3rem;
+
+    display: flex;
+    align-items: center;
+    
+    position: relative;  // need to add "relative" here as "item::before" has position "absolute"
+    // so that when "item" is hovered, this will be on top of the animation. 
+    // Z-index only works when we have a specified position
+    z-index: 10;  
+  }
+
+
+  &__link:hover {
+    // color: orangered;  // the "currentColor" can pick this up
+  }
+
+  &__icon {
+    // color: blue;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-right: 2rem;
+    // fill: var(--color-grey-light-1);
+    fill: currentColor;  // "currentColor" is the color of the current element or parent element
+  }
+}
+
+
+// LEGAL
+.legal {
+  font-size: 1.2rem;
+  color: var(----color-grey-light-4);
+  text-align: center;
+  padding: 2.5rem;
+}
+
+
+// GALLERY
+.gallery {
+  display: flex;
+
+  &__photo {
+    width: 100%;
+    display: block;  // to avoid small spaces underneath the image, if we leave it aS an "inline" element
+  }
+}
+
+
+// HOTEL OVERVIEW
+.overview {
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+  // border-bottom: 1px solid var(--color-grey-light-2);
+  border-bottom: var(--line);
+
+  &__heading {
+    font-size: 2.25rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1.5rem 3rem;
+  }
+
+  &__stars {
+    // flex: 1;
+    margin-right: auto;  // using this in conjunction with flexbox, to create space between elements
+    // background-color: orangered;
+
+    // changing the parent of "icon-star" to flex, we can remove the small space beneath the stars
+    // the children will become flex items, and so the space will be gone
+    display: flex;  
+  }
+
+
+  &__icon-star,
+  &__icon-location {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: var(--color-primary);
+
+    // removes the small space beneath the stars
+    // line-height: 0;
+    // font-size: 0;
+  }
+
+  &__location {
+    font-size: 1.2rem;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+  }
+
+  &__icon-location {
+    margin-right: .5rem;
+  }
+
+
+  &__rating {
+    background-color: var(--color-primary);
+    color: #fff;
+    margin-left: 3rem;
+    align-self: stretch; // parent "overview" has "align-items: center". So we override it with "align-self: stretch"
+    padding: 0 2.25rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  &__rating-average {
+    font-size: 2.25rem;
+    font-weight: 300;
+    margin-bottom: -3px;
+  }
+
+  &__rating-count {
+    font-size: .8rem;
+    text-transform: uppercase;
+  }
+}
+
+
+
+// BUTTON INLINE
+.btn-inline {
+  border: none;
+  color: var(--color-primary);
+  font-size: inherit;  // inherit the parent's font size. modular - can be reused elsewhere
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  display: inline-block;
+  background-color: transparent;  // modular - can be reused elsewhere
+  cursor: pointer;
+  transition: all .2s;
+
+  & span {
+    margin-left: 3px;
+    // transition: all .2s;
+    transition: margin-left .2s;
+  }
+
+  &:hover {
+    color: var(--color-grey-dark-1);
+
+    span {
+      margin-left: 8px;
+    }
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite;
+  }
+}
+
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 1rem 4rem rgba(0,0,0,.25);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+
+
+// PARAGRAPH
+// .paragraph:not(:last-child) {
+.paragraph:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+
+// LIST
+.list {
+  list-style: none;
+  margin: 3rem 0;
+  padding: 3rem 0;
+  border-top: var(--line);
+  border-bottom: var(--line);
+
+  display: flex;
+  flex-wrap: wrap;
+  
+  &__item {
+    flex: 0 0 50%;
+    margin-bottom: .7rem;
+   
+  }
+
+  &__item::before {
+    content: "";
+    display: inline-block;
+    height: 1rem;
+    width: 1rem;
+    margin-right: .7rem;
+    
+    // Older browsers
+    // background-image: url(../img/chevron-thin-right.svg);
+    // background-size: cover;
+
+    // Newer browsers - using "masks"
+    // the pink square is still there. But we only see the transparent part, which is the svg in this case.
+    background-color: var(--color-primary);
+    -webkit-mask-image: url(../img/chevron-thin-right.svg);
+    -webkit-mask-size: cover;
+    mask-image: url(../img/chevron-thin-right.svg);
+    mask-size: cover;
+  }
+}
+
+
+// RECOMMEND
+.recommend {
+  font-size: 1.3rem;
+  color: var(--color-grey-dark-3);
+
+  display: flex;
+  align-items: center;
+  // justify-content: space-around;
+
+  &__count {
+    margin-right: auto;
+  }
+
+  &__friends {
+
+  }
+  
+  &__photo {
+    box-sizing: content-box;  // we don't want to make the photos smaller after adding the border. Alt we can try to make the photos bigger
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    border: 3px solid #fff;
+
+    &:not(:last-child) {
+      margin-right: -1.5rem;
+    }
+  }
+}
+
+
+
+// REVIEWS
+.review {
+  background-color: #fff;
+  box-shadow: var(--shadow-light);
+  padding: 3rem;
+  margin-bottom: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  
+  &__text {
+    z-index: 10;
+    position: relative;  // z-index only works if you set the position
+  }
+
+  &__user {
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+  }
+
+  &__photo {
+    height: 4.5rem;
+    width: 4.5rem;
+    border-radius: 50%;
+    margin-right: 1.5rem;
+  }
+
+  &__user-box {
+    margin-right: auto;
+  }
+
+  &__user-name {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: .4rem;
+  }
+
+  &__user-date {
+    font-size: 1rem;
+    color: var(--color-grey-dark-3);
+  }
+
+  &__rating {
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    font-weight: 300;
+  }
+
+
+  &::before {
+    content: "\201C";
+    position: absolute;
+    top: -2.75rem;
+    left: -1rem;
+    line-height: 1;
+    font-size: 20rem;
+    color: var(--color-grey-light-2);
+    font-family: sans-serif;
+    z-index: 1;
+  }
+}
+
+
+// CALL TO ACTION (CTA) 
+.cta {
+  padding: 3.5rem 0;
+  text-align: center;
+
+  &__book-now {
+    font-size: 2 rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+}
+
+
+.btn {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-radius: 100px;
+  border: none;
+  background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+  color: #fff;
+  position: relative;
+  overflow: hidden;  // "invisible" button is outside of ".btn" and it's an overflow. So, this will hides it
+  cursor: pointer;
+
+  & > * {  // select all the child elements (in this case because of repeated code - "REFACTOR")
+    display: inline-block;  // span is by default an "inline" element, so that we can add padding
+    height: 100%;  // will get the height and width of the parent element
+    width: 100%;
+    transition: all .2s;
+  }
+
+  &__visible {
+    // display: inline-block;  // span is by default an "inline" element, so that we can add padding
+    padding: 2rem 7.5rem;  // this padding will define the size of the button
+    // height: 100%;  // will get the height and width of the parent element
+    // width: 100%;
+    // transition: all .2s;
+  }
+
+  &__invisible {
+    // display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -100%;  // move it up exactly the size of the element
+    // padding: 2rem 7.5rem;
+    padding: 2rem 0;  // need to change the padding on left and right, so that to give enough space for teh wordings inside to fit
+
+    // height: 100%;  // will get the height and width of the parent element
+    // width: 100%;
+    // transition: all .2s;
+  }
+
+  &:hover {
+    // transition DO NOT work on "background images", and this include "linear gradient"
+    background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+  }
+
+  &:hover &__visible{
+    transform: translateY(100%);  // translate 100% of its height, on the Y axis
+  }
+
+  &:hover &__invisible {
+    top: 0;
+  }
+
+  &:focus {
+    outline: none;
+    animation: pulsate 1s infinite;
+  }
+
+}

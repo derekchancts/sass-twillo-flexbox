@@ -1,0 +1,23 @@
+{
+  "name": "twillo",
+  "version": "1.0.0",
+  "description": "twillo app",
+  "main": "index.js",
+  "scripts": {
+    "watchsass": "node-sass sass/main.scss css/style.css -w",
+    "compilesass": "node-sass sass/main.scss css/style.comp.css",
+    "prefixcss": "postcss --use autoprefixer -b \"last 10 versions\" css/style.comp.css -o css/style.prefix.css",
+    "compresscss": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+    "buildcss": "npm-run-all compilesass prefixcss compresscss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekchancts/sass-twillo-flexbox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derekchancts/sass-twillo-flexbox/issues"
+  },
+  "homepage": "https://github.com/derekchancts/sass-twillo-flexbox#readme"
+}
