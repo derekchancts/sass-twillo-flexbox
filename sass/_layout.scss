@@ -6,6 +6,14 @@
   box-shadow: var(--shadow-dark);
 
   min-height: 50rem;  // testing purposes - will remove this
+
+
+  @media only screen and (max-width: $bp-largest) {
+    margin: 0;
+    
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 
@@ -20,11 +28,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: $bp-tiny) {
+    flex-wrap: wrap;
+    align-content: space-around;   // "align-content" - control the space between the rows
+    height: 11rem;
+  }
 }
 
 
 .content {
   display: flex;
+
+  @media only screen and (max-width: $bp-medium) {
+    flex-direction: column;
+  }
 }
 
 
@@ -53,9 +71,17 @@
 .detail {
   font-size: 1.4rem;
   display: flex;
-  padding: 4.5rem;  // same as the "margin-right" in "description"
+  padding: 4.5rem;  // same as the "margin-right" in "description" below
   background-color: var(--color-grey-light-1);
   border-bottom: var(--line);
+
+  @media only screen and (max-width: $bp-medium) {
+   padding: 3rem;
+  }
+  
+  @media only screen and (max-width: $bp-small) {
+    flex-direction: column;
+  }
 }
 
 .description {
@@ -65,8 +91,20 @@
   box-shadow: var(--shadow-light);
   padding: 3rem;
   flex: 0 0 60%;
-  margin-right: 4.5rem;
+  margin-right: 4.5rem;  // same as the "margin-right" in "detail" above
+
+  @media only screen and (max-width: $bp-medium) {
+    padding: 2rem;
+    margin-right: 3rem;
+  }
+
+  @media only screen and (max-width: $bp-small) {
+    margin-bottom: 3rem;
+    margin-right: 0;
+    // width: 100%;  // no need for this as we have changed "margin-right" to 0
+  }
 }
+
 
 .user-reviews {
   // background-color: yellowgreen;

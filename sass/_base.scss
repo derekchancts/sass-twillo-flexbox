@@ -38,6 +38,16 @@ Grey dark 3: #999
   --line: 1px solid var(--color-grey-light-2);
 }
 
+
+// media queries - cannot use CSS Variables when using SASS. So, we have to use SASS Variables.
+$bp-largest: 75em;    // 1200px / 16px = 75
+$bp-large: 68.75em;   // 1100px / 16px = 68.75
+$bp-medium: 56.25em;    // 900px / 16px = 56.25
+$bp-small: 37.5em;    // 600px / 16px = 37.5
+$bp-tiny: 31.25em;    // 500px / 16px = 31.25
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -52,7 +62,16 @@ Grey dark 3: #999
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;   // 1rem = 10px
+  font-size: 62.5%;   // 1rem = 10px,  10px/16px = 62.5%,  want to change font size to 10px;
+
+  @media only screen and (max-width: $bp-large) {
+    font-size: 50%;   // 8px/16px = 50%,  want to change font size to 8px 
+                      // so can make the text to fit into the screen better
+                      // this will create some margin as the width of the layout is now 
+                      // 120rem / 8px = 960px, and not 1200px
+                      // so, on the "container" in layout, we need to set it's "max-width" and with to 100% 
+                      // to fill in the space left after the change to the smaller font size
+  }
 }
 
 body {
